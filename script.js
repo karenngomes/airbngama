@@ -1,3 +1,18 @@
+var countDays = 0;
+
+function loadingSpinner() {
+  var divSpinner = document.createElement("div");
+  divSpinner.setAttribute("class", "spinner-border text-success");
+  divSpinner.setAttribute("rolw", "status");
+
+  var divCardGroup = document.getElementById("div-card-group");
+  divCardGroup.innerHTML = "";
+  divCardGroup.style =
+    "justify-content: center; height: 300px; align-items: center;";
+
+  divCardGroup.appendChild(divSpinner);
+}
+
 function createCard(data, position) {
   var divCard, divCardBody, img, p, cardTitle, cardSubtitle;
 
@@ -20,22 +35,43 @@ function createCard(data, position) {
   cardSubtitle.textContent = data[position].property_type;
 
   p = document.createElement("p");
-  p.setAttribute("class", "card-text");
-  p.textContent = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  }).format(data[position].price || "");
+  p.setAttribute("class", "card-text text-value-day");
+  p.textContent =
+    new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(data[position].price || "") + "/noite";
 
   divCardBody.appendChild(cardTitle);
   divCardBody.appendChild(cardSubtitle);
   divCardBody.appendChild(p);
+
+  if (countDays !== 0) {
+    var newParagraph = document.createElement("p");
+    newParagraph.setAttribute("class", "card-text");
+
+    var small = document.createElement("small");
+    small.setAttribute("class", "text-muted");
+
+    small.textContent =
+      "Total de " +
+      new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }).format(data[position].price * countDays || "");
+    console.log(small);
+
+    newParagraph.appendChild(small);
+    divCardBody.appendChild(small);
+  }
 
   divCard.appendChild(img);
   divCard.appendChild(divCardBody);
 
   return divCard;
 }
-async function fetchDatas() {
+
+async function fetchData() {
   await fetch("https://api.sheety.co/30b6e400-9023-4a15-8e6c-16aa4e3b1e72")
     .then(function (response) {
       return response.json();
@@ -43,6 +79,9 @@ async function fetchDatas() {
     .then(function (data) {
       console.log("rolou", data);
       var divCardGroup = document.getElementById("div-card-group");
+      divCardGroup.innerHTML = "";
+      divCardGroup.style = "";
+
       var newDiv, row, col;
       var i = 0;
 
@@ -73,4 +112,23 @@ async function fetchDatas() {
     });
 }
 
-fetchDatas();
+loadingSpinner();
+fetchData();
+
+function daysBetween(firstDate, lastDate) {
+  const oneDay = 24 * 60 * 60 * 1000;
+  return parseInt((lastDate - firstDate) / oneDay) + 1;
+}
+
+function handleClickSearch() {
+  var checkinValue = document.getElementById("checkin").value;
+  var checkoutValue = document.getElementById("checkout").value;
+
+  var checkinDate = new Date(checkinValue);
+  var checkoutDate = new Date(checkoutValue);
+
+  countDays = daysBetween(checkinDate, checkoutDate);
+
+  loadingSpinner();
+  fetchData();
+}

@@ -7,7 +7,7 @@
   transition: 0.3s;
 }
 
-.card:hover {
+#div-card-group .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -17,6 +17,25 @@
 
 .card-img-top {
   height: 13rem;
+}
+
+.text-value-day {
+  margin-bottom: auto;
+  font-weight: bold;
+}
+
+#div-row-search {
+  margin: 2rem 1rem;
+  justify-content: center;
+}
+
+#div-row-search .card {
+  width: 100%;
+}
+
+.btn-search {
+  height: 2.5rem;
+  place-self: center;
 }
 
 .social-networks {

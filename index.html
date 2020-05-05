@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -13,6 +13,27 @@
 
 <body>
     <div class="container">
+        <div id="div-row-search" class="row">
+            <div class="card">
+                <div class="card-body">
+                    <form id="form-search" onsubmit="event.preventDefault()">
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label for="checkin">Check-in</label>
+                                <input type="date" class="form-control" id="checkin">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="checkout">Checkout</label>
+                                <input type="date" class="form-control" id="checkout">
+                            </div>
+                            <button type="submit" onclick="handleClickSearch()"
+                                class="btn btn-outline-success btn-search"><i class="fas fa-search"></i>
+                                Buscar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div id="div-card-group" class="row">
         </div>
         <footer class="pt-4 my-md-5 pt-md-5 border-top">
