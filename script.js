@@ -1,5 +1,4 @@
 function createCard(data, position) {
-  //   console.log(data[position]);
   var divCard, divCardBody, img, p, cardTitle, cardSubtitle;
 
   divCard = document.createElement("div");
@@ -43,9 +42,8 @@ async function fetchDatas() {
     })
     .then(function (data) {
       console.log("rolou", data);
-      // return data;
-      var divContainer = document.getElementsByClassName("container-fluid")[0];
-      var divParent = document.createElement("div");
+      var divCardGr;
+      oup = document.getElementById("div-card-group");
       var newDiv, row, col;
       var i = 0;
 
@@ -68,9 +66,8 @@ async function fetchDatas() {
           }
         }
 
-        divParent.appendChild(row);
+        divCardGroup.appendChild(row);
       }
-      divContainer.appendChild(divParent);
     })
     .catch(function (err) {
       console.log("algo deu erradoh", err);

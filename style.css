@@ -12,9 +12,22 @@
 }
 
 .card-body {
-  height: 8rem;
+  /* height: 8rem; */
 }
 
 .card-img-top {
   height: 13rem;
+}
+
+.social-networks {
+  display: flex;
+}
+
+.social-networks li a {
+  width: 10rem;
+  color: black;
+}
+
+.social-networks li:not(:first-child) {
+  margin-left: 0.7rem;
 }
