@@ -33,9 +33,13 @@
   width: 100%;
 }
 
-.btn-search {
+.div-btn-search {
   height: 2.5rem;
   place-self: center;
+}
+
+.div-btn-search button {
+  float: right;
 }
 
 .social-networks {
