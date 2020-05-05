@@ -42,8 +42,7 @@ async function fetchDatas() {
     })
     .then(function (data) {
       console.log("rolou", data);
-      var divCardGr;
-      oup = document.getElementById("div-card-group");
+      var divCardGroup = document.getElementById("div-card-group");
       var newDiv, row, col;
       var i = 0;
 
