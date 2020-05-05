@@ -121,6 +121,7 @@ function daysBetween(firstDate, lastDate) {
 }
 
 function handleClickSearch() {
+  // validate first
   var checkinValue = document.getElementById("checkin").value;
   var checkoutValue = document.getElementById("checkout").value;
 
