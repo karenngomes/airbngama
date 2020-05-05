@@ -122,6 +122,7 @@ function daysBetween(firstDate, lastDate) {
 
 function handleClickSearch() {
   // validate first
+  showMap(true);
   var checkinValue = document.getElementById("checkin").value;
   var checkoutValue = document.getElementById("checkout").value;
 
@@ -132,4 +133,13 @@ function handleClickSearch() {
 
   loadingSpinner();
   fetchData();
+}
+
+function showMap(isToShow) {
+  var divMap = document.getElementById("div-map");
+  if (isToShow) {
+    divMap.setAttribute("class", "row show-map");
+  } else {
+    divMap.setAttribute("class", "row");
+  }
 }
