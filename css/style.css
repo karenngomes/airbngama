@@ -69,15 +69,28 @@
   float: right;
 }
 
+footer {
+  text-align: center;
+}
+
+footer .text-muted {
+  font-size: 15px;
+}
+
 .social-networks {
+  display: flex;
+  justify-content: center;
+}
+
+.social-networks ul {
   display: flex;
 }
 
-.social-networks li a {
+.social-networks ul li a {
   width: 10rem;
   color: black;
 }
 
-.social-networks li:not(:first-child) {
+.social-networks ul li:not(:first-child) {
   margin-left: 0.7rem;
 }
