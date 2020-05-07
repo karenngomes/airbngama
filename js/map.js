@@ -1,10 +1,10 @@
-var map;
-var markers = [];
-var infoWindow;
-var locationSelect;
-var input;
-var currentLoc;
-var maceio = { lat: -9.6658297, lng: -35.7352791 };
+let map;
+let markers = [];
+let infoWindow;
+let locationSelect;
+let input;
+let currentLoc;
+let maceio = { lat: -9.6658297, lng: -35.7352791 };
 
 async function initMapSearch() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -19,7 +19,7 @@ async function initMapSearch() {
 
   input = document.getElementById("location-search");
 
-  var autocomplete = new google.maps.places.Autocomplete(input, {
+  let autocomplete = new google.maps.places.Autocomplete(input, {
     componentRestrictions: { country: "br" },
     strictbounds: true,
   });
@@ -28,7 +28,7 @@ async function initMapSearch() {
   autocomplete.setFields(["address_components", "geometry", "icon", "name"]);
 
   autocomplete.addListener("place_changed", function () {
-    var place = autocomplete.getPlace();
+    let place = autocomplete.getPlace();
     currentLoc = place.geometry.location;
 
     clearLocations();
@@ -109,7 +109,7 @@ function searchLocationsNear() {
   } else {
     map.fitBounds(bounds);
     loadingSpinner();
-    setTimeout(() => renderCards(cards), 1000);
+    setTimeout(() => loadPagination(cards), 1000);
   }
 }
 
@@ -136,10 +136,9 @@ function createMarker(currentData) {
   });
   markers.push(marker);
 }
+/* --- Finish search map methods --- */
 
-function initialize() {
-  // initMapSearch();
-}
+function initialize() {}
 
 function initMapModal(currentData, index) {
   const myLoc = new google.maps.LatLng(

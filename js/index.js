@@ -111,6 +111,9 @@ function renderCards(data) {
 
     divCardsGroup.appendChild(row);
   }
+
+  let pagination = createPagination();
+  divCardsGroup.appendChild(pagination);
 }
 
 function daysBetween(firstDate, lastDate) {
@@ -120,7 +123,7 @@ function daysBetween(firstDate, lastDate) {
 
 function handleClickSearch() {
   // validate first
-  showMap(true);
+  // showMap(true);
   let checkinValue = document.getElementById("checkin").value;
   let checkoutValue = document.getElementById("checkout").value;
 
@@ -179,7 +182,7 @@ async function main() {
   data = response.airbngama;
 
   if (data.length) {
-    renderCards(data);
+    loadPagination(data);
     initMapSearch();
   }
 }

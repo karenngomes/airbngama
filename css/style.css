@@ -75,6 +75,20 @@
   float: right;
 }
 
+.row-pagination {
+  width: 100%;
+  margin: 0;
+}
+
+.row-pagination div {
+  display: flex;
+  justify-content: center;
+}
+
+.page-item a {
+  cursor: pointer;
+}
+
 footer {
   text-align: center;
 }
