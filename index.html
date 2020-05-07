@@ -12,14 +12,8 @@
 </head>
 
 <body>
-
-    <div id="infowindow-content">
-        <img src="" width="16" height="16" id="place-icon">
-        <span id="place-name" class="title"></span><br>
-        <span id="place-address"></span>
-    </div>
     <div class="container">
-
+        <div><select id="locationSelect" style="width: 10%; visibility: hidden"></select></div>
         <div id="div-row-search" class="row">
             <div class="card">
                 <div class="card-body">
@@ -48,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <div id="div-map" class="row">
+        <div id="div-map" class="row show-map">
             <div id="map"></div>
         </div>
         <div id="div-cards-group" class="row">
@@ -81,7 +75,7 @@
     <script src="./js/index.js"></script>
     <script src="./js/map.js"></script>
     <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABtuIDPvt_qJD-Iw2NdxKT61BpAOEm720&language=pt-BR&libraries=places&callback=initialize"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABtuIDPvt_qJD-Iw2NdxKT61BpAOEm720&language=pt-BR&libraries=places,geometry&callback=initialize"
         async defer></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

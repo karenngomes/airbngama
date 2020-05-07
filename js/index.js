@@ -67,7 +67,7 @@ function createCard(card, index) {
     textContent: "Mais informações",
     onclick: function () {
       showModal(card, index);
-      handleInitMap(card, index + 1);
+      initMapModal(card, index + 1);
     },
   });
 
@@ -104,8 +104,7 @@ function renderCards(data) {
 
       row.appendChild(col);
       i++;
-
-      if (i % 3 === 0) {
+      if (i % 3 === 0 || i === data.length) {
         break;
       }
     }
@@ -130,8 +129,7 @@ function handleClickSearch() {
 
   countDays = daysBetween(checkinDate, checkoutDate);
 
-  loadingSpinner();
-  main();
+  searchLocations();
 }
 
 function showMap(isToShow) {
@@ -182,6 +180,7 @@ async function main() {
 
   if (data.length) {
     renderCards(data);
+    initMapSearch();
   }
 }
 

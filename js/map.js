@@ -1,46 +1,50 @@
+var map;
+var markers = [];
+var infoWindow;
+var locationSelect;
+var input;
+var currentLoc;
+var maceio = { lat: -9.6658297, lng: -35.7352791 };
+
 async function initMapSearch() {
-  var mapSearch = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -9.6658297, lng: -35.7352791 },
-    zoom: 13,
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: maceio,
+    zoom: 11,
+    mapTypeId: "roadmap",
+    mapTypeControlOptions: {
+      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+    },
   });
-  var input = document.getElementById("location-search");
+  infoWindow = new google.maps.InfoWindow();
+
+  input = document.getElementById("location-search");
 
   var autocomplete = new google.maps.places.Autocomplete(input, {
     componentRestrictions: { country: "br" },
     strictbounds: true,
   });
-  autocomplete.bindTo("bounds", mapSearch);
+  autocomplete.bindTo("bounds", map);
 
   autocomplete.setFields(["address_components", "geometry", "icon", "name"]);
 
-  var infowindow = new google.maps.InfoWindow();
-  var infowindowContent = document.getElementById("infowindow-content");
-  infowindow.setContent(infowindowContent);
-  var marker = new google.maps.Marker({
-    map: mapSearch,
-    anchorPoint: new google.maps.Point(0, -29),
-  });
-
   autocomplete.addListener("place_changed", function () {
-    infowindow.close();
-    marker.setVisible(false);
     var place = autocomplete.getPlace();
+    currentLoc = place.geometry.location;
+
+    clearLocations();
     if (!place.geometry) {
       window.alert("Não há detalhes para o lugar: '" + place.name + "'");
       return;
     }
 
-    // If the place has a geometry, then present it on a map.
     if (place.geometry.viewport) {
-      mapSearch.fitBounds(place.geometry.viewport);
+      map.fitBounds(place.geometry.viewport);
     } else {
-      mapSearch.setCenter(place.geometry.location);
-      mapSearch.setZoom(17); // Why 17? Because it looks good.
+      map.setCenter(place.geometry.location);
+      map.setZoom(17);
     }
-    marker.setPosition(place.geometry.location);
-    marker.setVisible(true);
 
-    var address = "";
+    let address = "";
     if (place.address_components) {
       address = [
         (place.address_components[0] &&
@@ -54,19 +58,90 @@ async function initMapSearch() {
           "",
       ].join(" ");
     }
-
-    infowindowContent.children["place-icon"].src = place.icon;
-    infowindowContent.children["place-name"].textContent = place.name;
-    infowindowContent.children["place-address"].textContent = address;
-    infowindow.open(mapSearch, marker);
   });
 }
 
-function initialize() {
-  initMapSearch();
+function searchLocations() {
+  input = document.getElementById("location-search").value;
+  let geocoder = new google.maps.Geocoder();
+  geocoder.geocode({ address: input }, function (results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      searchLocationsNear(results[0].geometry.location);
+    } else {
+      alert(input + " não encontrado");
+    }
+  });
 }
 
-function handleInitMap(currentData, index) {
+function clearLocations() {
+  infoWindow.close();
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
+  }
+  markers.length = 0;
+}
+
+function searchLocationsNear() {
+  let bounds = new google.maps.LatLngBounds();
+  let cards = [];
+
+  clearLocations();
+
+  for (var i = 0; i < data.length; i++) {
+    const latlng = new google.maps.LatLng(
+      parseFloat(data[i].latitude),
+      parseFloat(data[i].longitude)
+    );
+    const distance = google.maps.geometry.spherical.computeDistanceBetween(
+      currentLoc,
+      latlng
+    );
+
+    if (distance < 1500) {
+      cards.push(data[i]);
+      createMarker(data[i]);
+      bounds.extend(latlng);
+    }
+  }
+
+  if (!markers.length) {
+    map.setCenter(maceio);
+  } else {
+    map.fitBounds(bounds);
+    loadingSpinner();
+    setTimeout(() => renderCards(cards), 1000);
+  }
+}
+
+function createMarker(currentData) {
+  let html = document.createElement("div");
+  html.innerHTML = `
+    <img style="width: 10rem;height: 8rem;" src=${currentData.photo}>
+    <p> ${currentData.name} </>
+  `;
+
+  const latlng = new google.maps.LatLng(
+    parseFloat(currentData.latitude),
+    parseFloat(currentData.longitude)
+  );
+
+  const marker = new google.maps.Marker({
+    map: map,
+    position: latlng,
+  });
+
+  google.maps.event.addListener(marker, "click", function () {
+    infoWindow.setContent(html);
+    infoWindow.open(map, marker);
+  });
+  markers.push(marker);
+}
+
+function initialize() {
+  // initMapSearch();
+}
+
+function initMapModal(currentData, index) {
   const myLoc = new google.maps.LatLng(
     currentData.latitude,
     currentData.longitude
