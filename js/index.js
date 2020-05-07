@@ -157,19 +157,33 @@ function showModal(card, index) {
   divModal.setAttribute("aria-hidden", "true");
 
   divModal.innerHTML = `
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">${card.name}</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Informações sobre a estadia</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" style="height: 100vh">
-        <div id="map-modal-${index + 1}" style="height: 100%"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      <div class="modal-body" style="height: 70vh">
+        <div class="row" style="height: 100%;">
+          <div class="col-md-6">
+            <img class="card-img-top" src=${card.photo}>
+            <h5>Nome: ${card.name}</h5>
+            <h6>Tipo de estadia: ${card.propertyType}</h6>
+            <p class="text-value-day">
+              ${
+                new Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(card.price || "") + "/noite"
+              }
+            </p>
+          </div>
+          <div class="col-md-6">
+          <div id="map-modal-${index + 1}" style="height: 100%"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>`;
