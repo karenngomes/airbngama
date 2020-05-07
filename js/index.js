@@ -59,7 +59,6 @@ function createCard(card, index) {
         currency: "BRL",
       }).format(card.price * countDays || "");
 
-    console.log(divTextPrices);
     divTextPrices.appendChild(small);
   }
   divCardBody.appendChild(divTextPrices);
@@ -167,15 +166,6 @@ function handleClickSearch() {
   }
 }
 
-function showMap(isToShow) {
-  let divMap = document.getElementById("div-map");
-  if (isToShow) {
-    divMap.setAttribute("class", "row show-map");
-  } else {
-    divMap.setAttribute("class", "row");
-  }
-}
-
 function showModal(card, index) {
   let divModal = document.createElement("div");
 
@@ -199,10 +189,12 @@ function showModal(card, index) {
       </div>
       <div class="modal-body" style="height: 70vh">
         <div class="row" style="height: 100%;">
-          <div class="col-md-6">
+          <div class="col-md-6 modal-body-info">
             <img class="card-img-top" src=${card.photo}>
-            <h5>Nome: ${card.name}</h5>
-            <h6>Tipo de estadia: ${card.propertyType}</h6>
+            <h5>${card.name}</h5>
+            <h6>Tipo de estadia: <small style="display: inline;" class="card-subtitle">${
+              card.propertyType
+            }</small></h6>
             <p class="text-value-day">
               ${
                 new Intl.NumberFormat("pt-BR", {
@@ -228,11 +220,8 @@ async function main() {
   data = response.airbngama;
 
   if (data.length) {
-    loadPagination(data);
     initMapSearch();
   }
 }
 
-// showMap(true);
-loadingSpinner();
 main();
