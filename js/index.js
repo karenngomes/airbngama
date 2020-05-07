@@ -31,15 +31,20 @@ function createCard(card, index) {
   divCardBody.setAttribute("class", "card-body");
   divCardBody.innerHTML = `
     <h5 class="card-title">${card.name}</h5>
-      <h6 class="card-subtitle">${card.propertyType}</h6>
-      <p class="card-text text-value-day">
-        ${
-          new Intl.NumberFormat("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-          }).format(card.price || "") + "/noite"
-        }
-      </p>
+    <small class="card-subtitle">${card.propertyType}</small>
+  `;
+
+  let divTextPrices = document.createElement("div");
+  divTextPrices.setAttribute("class", "text-prices");
+  divTextPrices.innerHTML = `
+    <p class="card-text text-value-day">
+      ${
+        new Intl.NumberFormat("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        }).format(card.price || "") + "/noite"
+      }
+    </p>
   `;
 
   if (countDays > 0) {
@@ -54,17 +59,20 @@ function createCard(card, index) {
         currency: "BRL",
       }).format(card.price * countDays || "");
 
-    divCardBody.appendChild(small);
+    console.log(divTextPrices);
+    divTextPrices.appendChild(small);
   }
+  divCardBody.appendChild(divTextPrices);
 
   buttonModal = document.createElement("button");
   buttonModal.setAttribute("data-toggle", "modal");
   buttonModal.setAttribute("data-target", `#modalCard${index + 1}`);
+  buttonModal.innerHTML = '<i class="fas fa-plus"></i>';
 
   Object.assign(buttonModal, {
     className: "btn btn-success",
     id: `btn-modal-card-${index + 1}`,
-    textContent: "Mais informações",
+    // textContent: ,
     onclick: function () {
       showModal(card, index);
       initMapModal(card, index + 1);

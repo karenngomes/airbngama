@@ -1,3 +1,38 @@
+.navbar {
+  background-color: white;
+  height: 5.5rem;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+
+#btn-about-me {
+  display: flex;
+  align-items: center;
+  padding: 5px 5px 5px 16px;
+  align-items: center;
+  border-radius: 21px;
+  border: 1px solid transparent;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.18);
+  border-color: #ebebeb;
+  background-color: #ffffff;
+  color: black;
+  text-decoration: none;
+  transition: box-shadow 0.3s;
+}
+
+#btn-about-me:hover {
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+#btn-about-me p {
+  margin-bottom: 0;
+  margin-right: 0.5rem;
+}
+
+#btn-about-me img {
+  border-radius: 100%;
+}
+
 .col-cards {
   margin-bottom: 2rem;
 }
@@ -40,8 +75,21 @@
   margin-right: 0;
 }
 
+#div-cards-group .card {
+  border-radius: 21px;
+  border: 1px solid transparent;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.18);
+  border-color: #ebebeb;
+  min-height: 100%;
+}
+
 #div-cards-group .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+#div-cards-group .card-img-top {
+  border-top-left-radius: 21px;
+  border-top-right-radius: 21px;
 }
 
 .card-body {
@@ -52,13 +100,23 @@
   height: 13rem;
 }
 
+.card-subtitle {
+  margin-bottom: 0.5rem;
+  display: block;
+  font-size: 1rem;
+}
+
 .text-value-day {
   margin-bottom: auto;
   font-weight: bold;
 }
 
+.text-prices {
+  float: right;
+}
+
 #div-row-search {
-  margin: 2rem 1rem;
+  margin: 7.5rem 1rem 2rem;
   justify-content: center;
 }
 
@@ -94,6 +152,11 @@
 
 .page-item a {
   cursor: pointer;
+}
+
+.page-item.active .page-link {
+  background-color: #28a745;
+  border-color: #28a745;
 }
 
 footer {

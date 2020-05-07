@@ -1,7 +1,6 @@
 let map;
 let markers = [];
 let infoWindow;
-let locationSelect;
 let input;
 let currentLoc;
 let maceio = { lat: -9.6658297, lng: -35.7352791 };
