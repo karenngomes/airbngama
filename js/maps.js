@@ -114,9 +114,21 @@ function searchLocationsNear() {
 
 function createMarker(currentData) {
   let html = document.createElement("div");
+  html.style = "display: flex;";
   html.innerHTML = `
     <img style="width: 10rem;height: 8rem;" src=${currentData.photo}>
-    <p> ${currentData.name} </>
+    <div style="width: 10rem;margin: 0rem 1rem;">
+      <p> ${currentData.name} </p>
+      <p> Tipo de estadia: ${currentData.propertyType} </p>
+      <p>
+        ${
+          new Intl.NumberFormat("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          }).format(currentData.price || "") + "/noite"
+        }
+      </p>
+    </div>
   `;
 
   const latlng = new google.maps.LatLng(
