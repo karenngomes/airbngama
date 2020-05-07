@@ -62,6 +62,13 @@
   justify-content: center;
 }
 
+.form-control.is-valid:focus,
+.was-validated :valid.form-control {
+  border-color: #ced4da !important;
+  background-image: inherit !important;
+  box-shadow: inherit !important;
+}
+
 #div-row-search .card {
   width: 100%;
 }

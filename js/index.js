@@ -121,18 +121,42 @@ function daysBetween(firstDate, lastDate) {
   return parseInt((lastDate - firstDate) / oneDay) + 1;
 }
 
-function handleClickSearch() {
-  // validate first
-  // showMap(true);
-  let checkinValue = document.getElementById("checkin").value;
-  let checkoutValue = document.getElementById("checkout").value;
+function validateForm() {
+  let form = document.getElementById("form-search");
+  form.classList.add("was-validated");
 
-  let checkinDate = new Date(checkinValue);
-  let checkoutDate = new Date(checkoutValue);
+  const invalidGroup = form.querySelectorAll(":invalid");
+
+  if (invalidGroup.length) {
+    return false;
+  }
+
+  let checkin = document.getElementById("checkin");
+  let checkout = document.getElementById("checkout");
+
+  let checkinDate = new Date(checkin.value);
+  let checkoutDate = new Date(checkout.value);
+
+  if (checkinDate > checkoutDate) {
+    let invalidFeedback = document.querySelectorAll(".date-fields");
+    checkin.classList.add("is-invalid");
+    checkout.classList.add("is-invalid");
+
+    invalidFeedback.forEach((div) => {
+      return (div.textContent = "Data de Checkin maior que Data de Checkout");
+    });
+    return false;
+  }
 
   countDays = daysBetween(checkinDate, checkoutDate);
 
-  searchLocations();
+  return true;
+}
+
+function handleClickSearch() {
+  if (validateForm()) {
+    searchLocations();
+  }
 }
 
 function showMap(isToShow) {

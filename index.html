@@ -17,20 +17,29 @@
         <div id="div-row-search" class="row">
             <div class="card">
                 <div class="card-body">
-                    <form id="form-search" onsubmit="event.preventDefault()">
+                    <form id="form-search" onsubmit="event.preventDefault()" novalidate>
                         <div class="form-row">
                             <div class="col-md-4 mb-2">
                                 <label for="location-search">Localização</label>
                                 <input type="text" class="form-control" id="location-search"
-                                    placeholder="Para onde você vai?">
+                                    placeholder="Para onde você vai?" required>
+                                <div class="invalid-feedback">
+                                    Selecione uma localização
+                                </div>
                             </div>
                             <div class="col-md-3 mb-2">
                                 <label for="checkin">Check-in</label>
-                                <input type="date" class="form-control" id="checkin">
+                                <input type="date" class="form-control" id="checkin" required>
+                                <div class="invalid-feedback date-fields">
+                                    Selecione uma data de checkin
+                                </div>
                             </div>
                             <div class="col-md-3 mb-2">
                                 <label for="checkout">Checkout</label>
-                                <input type="date" class="form-control" id="checkout">
+                                <input type="date" class="form-control" id="checkout" required>
+                                <div class="invalid-feedback date-fields">
+                                    Selecione uma data de checkout
+                                </div>
                             </div>
                             <div class="col div-btn-search">
                                 <button type="submit" onclick="handleClickSearch()" class="btn btn-outline-success"><i
