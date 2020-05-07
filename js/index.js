@@ -1,60 +1,49 @@
 let countDays = 0;
-let buttonModal = document.createElement("button");
-
+let data = [];
 const apiUrl =
   "https://v2-api.sheety.co/74b6febf2ffacaffc50a409f935d9b95/airbngama/airbngama";
 
+let divContainer = document.getElementsByClassName("container")[0];
+let divCardsGroup = document.getElementById("div-cards-group");
+let buttonModal = document.createElement("button");
+
 function loadingSpinner() {
-  var divSpinner = document.createElement("div");
+  let divSpinner = document.createElement("div");
   divSpinner.setAttribute("class", "spinner-border text-success");
   divSpinner.setAttribute("role", "status");
 
-  var divCardGroup = document.getElementById("div-card-group");
-  divCardGroup.innerHTML = "";
-  divCardGroup.style =
+  divCardsGroup.innerHTML = "";
+  divCardsGroup.style =
     "justify-content: center; height: 300px; align-items: center;";
 
-  divCardGroup.appendChild(divSpinner);
+  divCardsGroup.appendChild(divSpinner);
 }
 
-function createCard(data, index) {
-  var divCard, divCardBody, img, p, cardTitle, cardSubtitle;
+function createCard(card, index) {
+  let col = document.createElement("div");
+  col.setAttribute("class", "col-md-4 col-cards");
 
-  divCard = document.createElement("div");
+  let divCard = document.createElement("div");
   divCard.setAttribute("class", "card");
+  divCard.innerHTML = `<img class="card-img-top" src=${card.photo}>`;
 
-  img = document.createElement("img");
-  img.setAttribute("class", "card-img-top");
-  img.setAttribute("src", data[index].photo);
-
-  divCardBody = document.createElement("div");
+  let divCardBody = document.createElement("div");
   divCardBody.setAttribute("class", "card-body");
-
-  cardTitle = document.createElement("h5");
-  cardTitle.setAttribute("class", "card-title");
-  cardTitle.textContent = data[index].name;
-
-  cardSubtitle = document.createElement("h6");
-  cardSubtitle.setAttribute("class", "card-subtitle");
-  cardSubtitle.textContent = data[index].propertyType;
-
-  p = document.createElement("p");
-  p.setAttribute("class", "card-text text-value-day");
-  p.textContent =
-    new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(data[index].price || "") + "/noite";
-
-  divCardBody.appendChild(cardTitle);
-  divCardBody.appendChild(cardSubtitle);
-  divCardBody.appendChild(p);
+  divCardBody.innerHTML = `
+    <h5 class="card-title">${card.name}</h5>
+      <h6 class="card-subtitle">${card.propertyType}</h6>
+      <p class="card-text text-value-day">
+        ${
+          new Intl.NumberFormat("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          }).format(card.price || "") + "/noite"
+        }
+      </p>
+  `;
 
   if (countDays > 0) {
-    var newParagraph = document.createElement("p");
-    newParagraph.setAttribute("class", "card-text");
-
-    var small = document.createElement("small");
+    let small = document.createElement("small");
     small.setAttribute("class", "text-muted");
     small.setAttribute("style", "display: block;");
 
@@ -63,10 +52,8 @@ function createCard(data, index) {
       new Intl.NumberFormat("pt-BR", {
         style: "currency",
         currency: "BRL",
-      }).format(data[index].price * countDays || "");
-    console.log(small);
+      }).format(card.price * countDays || "");
 
-    newParagraph.appendChild(small);
     divCardBody.appendChild(small);
   }
 
@@ -78,65 +65,54 @@ function createCard(data, index) {
     className: "btn btn-success",
     textContent: "Mais informações",
     onclick: function () {
-      showModal(data, index);
+      showModal(card, index);
     },
   });
 
-  handleInitMap(data[index]);
+  handleInitMap(card);
 
   divCardBody.appendChild(buttonModal);
-
-  divCard.appendChild(img);
   divCard.appendChild(divCardBody);
+  col.appendChild(divCard);
 
-  return divCard;
+  return col;
 }
 
 async function fetchData() {
-  await fetch(apiUrl)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (response) {
-      let data = response.airbngama;
-      var divCardGroup = document.getElementById("div-card-group");
-      divCardGroup.innerHTML = "";
-      divCardGroup.style = "";
-
-      var newDiv, row, col;
-      var i = 0;
-
-      while (i < data.length) {
-        row = document.createElement("div");
-        row.setAttribute("class", "row");
-
-        while (1) {
-          col = document.createElement("div");
-          col.setAttribute("class", "col-md-4 col-cards");
-
-          newDiv = createCard(data, i);
-          col.appendChild(newDiv);
-
-          row.appendChild(col);
-          i++;
-
-          if (i % 3 === 0) {
-            break;
-          }
-        }
-
-        divCardGroup.appendChild(row);
-      }
+  return await fetch(apiUrl)
+    .then(async function (response) {
+      return await response.json();
     })
     .catch(function (err) {
-      console.log("algo deu erradoh", err);
+      console.log("algo deu errado", err);
     });
 }
 
-var divContainer = document.getElementsByClassName("container")[0];
+function renderCards(data) {
+  let row, col;
+  let i = 0;
 
-loadingSpinner();
-fetchData();
+  divCardsGroup.innerHTML = "";
+  divCardsGroup.style = "";
+
+  while (i < data.length) {
+    row = document.createElement("div");
+    row.setAttribute("class", "row");
+
+    while (1) {
+      col = createCard(data[i], i);
+
+      row.appendChild(col);
+      i++;
+
+      if (i % 3 === 0) {
+        break;
+      }
+    }
+
+    divCardsGroup.appendChild(row);
+  }
+}
 
 function daysBetween(firstDate, lastDate) {
   const oneDay = 24 * 60 * 60 * 1000;
@@ -146,20 +122,20 @@ function daysBetween(firstDate, lastDate) {
 function handleClickSearch() {
   // validate first
   showMap(true);
-  var checkinValue = document.getElementById("checkin").value;
-  var checkoutValue = document.getElementById("checkout").value;
+  let checkinValue = document.getElementById("checkin").value;
+  let checkoutValue = document.getElementById("checkout").value;
 
-  var checkinDate = new Date(checkinValue);
-  var checkoutDate = new Date(checkoutValue);
+  let checkinDate = new Date(checkinValue);
+  let checkoutDate = new Date(checkoutValue);
 
   countDays = daysBetween(checkinDate, checkoutDate);
 
   loadingSpinner();
-  fetchData();
+  main();
 }
 
 function showMap(isToShow) {
-  var divMap = document.getElementById("div-map");
+  let divMap = document.getElementById("div-map");
   if (isToShow) {
     divMap.setAttribute("class", "row show-map");
   } else {
@@ -167,10 +143,9 @@ function showMap(isToShow) {
   }
 }
 
-function showModal(data, index) {
-  const currentData = data[index];
-
+function showModal(currentData, index) {
   let divModal = document.createElement("div");
+
   Object.assign(divModal, {
     id: `modalCard${index + 1}`,
     tabindex: "-1",
@@ -200,3 +175,15 @@ function showModal(data, index) {
 
   divContainer.appendChild(divModal);
 }
+
+async function main() {
+  const response = await fetchData();
+  data = response.airbngama;
+
+  if (data.length) {
+    renderCards(data);
+  }
+}
+
+loadingSpinner();
+main();

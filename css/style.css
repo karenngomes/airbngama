@@ -34,7 +34,12 @@
   transition: 0.3s;
 }
 
-#div-card-group .card:hover {
+#div-cards-group {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+#div-cards-group .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
