@@ -3,7 +3,7 @@ let data = [];
 const apiUrl =
   "https://v2-api.sheety.co/74b6febf2ffacaffc50a409f935d9b95/airbngama/airbngama";
 
-let divContainer = document.getElementsByClassName("container")[0];
+let divContainer = document.querySelector(".container");
 let divCardsGroup = document.getElementById("div-cards-group");
 let buttonModal = document.createElement("button");
 
@@ -63,13 +63,13 @@ function createCard(card, index) {
 
   Object.assign(buttonModal, {
     className: "btn btn-success",
+    id: `btn-modal-card-${index + 1}`,
     textContent: "Mais informações",
     onclick: function () {
       showModal(card, index);
+      handleInitMap(card, index + 1);
     },
   });
-
-  handleInitMap(card);
 
   divCardBody.appendChild(buttonModal);
   divCard.appendChild(divCardBody);
@@ -143,7 +143,7 @@ function showMap(isToShow) {
   }
 }
 
-function showModal(currentData, index) {
+function showModal(card, index) {
   let divModal = document.createElement("div");
 
   Object.assign(divModal, {
@@ -159,13 +159,13 @@ function showModal(currentData, index) {
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">${currentData.name}</h5>
+        <h5 class="modal-title" id="exampleModalLabel">${card.name}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body" style="height: 100vh">
-        <div id="map-modal" style="height: 100%"><div>
+        <div id="map-modal-${index + 1}" style="height: 100%"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -185,5 +185,6 @@ async function main() {
   }
 }
 
+// showMap(true);
 loadingSpinner();
 main();

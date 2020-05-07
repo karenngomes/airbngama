@@ -1,21 +1,16 @@
-function initMap() {
+async function initMapSearch() {
   var mapSearch = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -9.5416265, lng: -35.8276236 },
-    zoom: 10,
+    center: { lat: -9.6658297, lng: -35.7352791 },
+    zoom: 13,
   });
-  // var card = document.getElementById("pac-card");
   var input = document.getElementById("location-search");
 
-  // map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
-
-  var autocomplete = new google.maps.places.Autocomplete(input);
-
-  // Bind the map's bounds (viewport) property to the autocomplete object,
-  // so that the autocomplete requests use the current map bounds for the
-  // bounds option in the request.
+  var autocomplete = new google.maps.places.Autocomplete(input, {
+    componentRestrictions: { country: "br" },
+    strictbounds: true,
+  });
   autocomplete.bindTo("bounds", mapSearch);
 
-  // Set the data fields to return when the user selects a place.
   autocomplete.setFields(["address_components", "geometry", "icon", "name"]);
 
   var infowindow = new google.maps.InfoWindow();
@@ -31,8 +26,6 @@ function initMap() {
     marker.setVisible(false);
     var place = autocomplete.getPlace();
     if (!place.geometry) {
-      // User entered the name of a Place that was not suggested and
-      // pressed the Enter key, or the Place Details request failed.
       window.alert("Não há detalhes para o lugar: '" + place.name + "'");
       return;
     }
@@ -70,39 +63,27 @@ function initMap() {
 }
 
 function initialize() {
-  initMap();
-  //   initMap2();
+  initMapSearch();
 }
 
-
-// var mapModal = document.getElementById('map-modal')
-// google.maps.event.addDomListener(mapModal, 'click', initialize);
-
-// var currentData;
-var mapModal;
-var markers = [];
-function initMapModal(currentData) {
-  markers = [];
-
-  mapModal = new google.maps.Map(document.getElementById("map-modal"), {
-    center: { lat: -9.5416265, lng: -35.8276236 },
-    zoom: 10,
-  });
-
-  var latLng = new google.maps.LatLng(
+function handleInitMap(currentData, index) {
+  const myLoc = new google.maps.LatLng(
     currentData.latitude,
     currentData.longitude
   );
-  console.log(currentData.latitude, currentData.longitude);
-  markers[0] = new google.maps.Marker({
-    position: latLng,
-    map: mapModal,
+
+  let marker = new google.maps.Marker({
+    position: myLoc,
   });
-}
 
-function handleInitMap(currentData) {
-  google.maps.event.addDomListener(buttonModal, "click", () =>
-    initMapModal(currentData)
+  const opt = {
+    center: myLoc,
+    zoom: 14,
+  };
+
+  const mapModal = new google.maps.Map(
+    document.querySelector(`#map-modal-${index}`),
+    opt
   );
+  marker.setMap(mapModal);
 }
-
