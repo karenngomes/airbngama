@@ -1,7 +1,7 @@
 function initMap() {
-  var map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -33.8688, lng: 151.2195 },
-    zoom: 13,
+  var mapSearch = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: -9.5416265, lng: -35.8276236 },
+    zoom: 10,
   });
   // var card = document.getElementById("pac-card");
   var input = document.getElementById("location-search");
@@ -13,7 +13,7 @@ function initMap() {
   // Bind the map's bounds (viewport) property to the autocomplete object,
   // so that the autocomplete requests use the current map bounds for the
   // bounds option in the request.
-  autocomplete.bindTo("bounds", map);
+  autocomplete.bindTo("bounds", mapSearch);
 
   // Set the data fields to return when the user selects a place.
   autocomplete.setFields(["address_components", "geometry", "icon", "name"]);
@@ -22,7 +22,7 @@ function initMap() {
   var infowindowContent = document.getElementById("infowindow-content");
   infowindow.setContent(infowindowContent);
   var marker = new google.maps.Marker({
-    map: map,
+    map: mapSearch,
     anchorPoint: new google.maps.Point(0, -29),
   });
 
@@ -39,10 +39,10 @@ function initMap() {
 
     // If the place has a geometry, then present it on a map.
     if (place.geometry.viewport) {
-      map.fitBounds(place.geometry.viewport);
+      mapSearch.fitBounds(place.geometry.viewport);
     } else {
-      map.setCenter(place.geometry.location);
-      map.setZoom(17); // Why 17? Because it looks good.
+      mapSearch.setCenter(place.geometry.location);
+      mapSearch.setZoom(17); // Why 17? Because it looks good.
     }
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
@@ -65,6 +65,44 @@ function initMap() {
     infowindowContent.children["place-icon"].src = place.icon;
     infowindowContent.children["place-name"].textContent = place.name;
     infowindowContent.children["place-address"].textContent = address;
-    infowindow.open(map, marker);
+    infowindow.open(mapSearch, marker);
   });
 }
+
+function initialize() {
+  initMap();
+  //   initMap2();
+}
+
+
+// var mapModal = document.getElementById('map-modal')
+// google.maps.event.addDomListener(mapModal, 'click', initialize);
+
+// var currentData;
+var mapModal;
+var markers = [];
+function initMapModal(currentData) {
+  markers = [];
+
+  mapModal = new google.maps.Map(document.getElementById("map-modal"), {
+    center: { lat: -9.5416265, lng: -35.8276236 },
+    zoom: 10,
+  });
+
+  var latLng = new google.maps.LatLng(
+    currentData.latitude,
+    currentData.longitude
+  );
+  console.log(currentData.latitude, currentData.longitude);
+  markers[0] = new google.maps.Marker({
+    position: latLng,
+    map: mapModal,
+  });
+}
+
+function handleInitMap(currentData) {
+  google.maps.event.addDomListener(buttonModal, "click", () =>
+    initMapModal(currentData)
+  );
+}
+

@@ -1,9 +1,13 @@
-var countDays = 0;
+let countDays = 0;
+let buttonModal = document.createElement("button");
+
+const apiUrl =
+  "https://v2-api.sheety.co/74b6febf2ffacaffc50a409f935d9b95/airbngama/airbngama";
 
 function loadingSpinner() {
   var divSpinner = document.createElement("div");
   divSpinner.setAttribute("class", "spinner-border text-success");
-  divSpinner.setAttribute("rolw", "status");
+  divSpinner.setAttribute("role", "status");
 
   var divCardGroup = document.getElementById("div-card-group");
   divCardGroup.innerHTML = "";
@@ -32,7 +36,7 @@ function createCard(data, index) {
 
   cardSubtitle = document.createElement("h6");
   cardSubtitle.setAttribute("class", "card-subtitle");
-  cardSubtitle.textContent = data[index].property_type;
+  cardSubtitle.textContent = data[index].propertyType;
 
   p = document.createElement("p");
   p.setAttribute("class", "card-text text-value-day");
@@ -52,6 +56,7 @@ function createCard(data, index) {
 
     var small = document.createElement("small");
     small.setAttribute("class", "text-muted");
+    small.setAttribute("style", "display: block;");
 
     small.textContent =
       "Total de " +
@@ -65,7 +70,7 @@ function createCard(data, index) {
     divCardBody.appendChild(small);
   }
 
-  let buttonModal = document.createElement("button");
+  buttonModal = document.createElement("button");
   buttonModal.setAttribute("data-toggle", "modal");
   buttonModal.setAttribute("data-target", `#modalCard${index + 1}`);
 
@@ -77,6 +82,8 @@ function createCard(data, index) {
     },
   });
 
+  handleInitMap(data[index]);
+
   divCardBody.appendChild(buttonModal);
 
   divCard.appendChild(img);
@@ -86,11 +93,12 @@ function createCard(data, index) {
 }
 
 async function fetchData() {
-  await fetch("https://api.sheety.co/30b6e400-9023-4a15-8e6c-16aa4e3b1e72")
+  await fetch(apiUrl)
     .then(function (response) {
       return response.json();
     })
-    .then(function (data) {
+    .then(function (response) {
+      let data = response.airbngama;
       var divCardGroup = document.getElementById("div-card-group");
       divCardGroup.innerHTML = "";
       divCardGroup.style = "";
@@ -181,8 +189,8 @@ function showModal(data, index) {
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        ...
+      <div class="modal-body" style="height: 100vh">
+        <div id="map-modal" style="height: 100%"><div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
