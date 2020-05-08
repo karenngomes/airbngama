@@ -13,8 +13,7 @@ function loadingSpinner() {
   divSpinner.setAttribute("role", "status");
 
   divCardsGroup.innerHTML = "";
-  divCardsGroup.style =
-    "justify-content: center; height: 300px; align-items: center;";
+  divCardsGroup.classList.add("card-group-height");
 
   divCardsGroup.appendChild(divSpinner);
 }
@@ -69,7 +68,7 @@ function createCard(card, index) {
   buttonModal.innerHTML = '<i class="fas fa-plus"></i>';
 
   Object.assign(buttonModal, {
-    className: "btn btn-success",
+    className: "btn btn-success btn-more-info",
     id: `btn-modal-card-${index + 1}`,
     // textContent: ,
     onclick: function () {
@@ -100,7 +99,7 @@ function renderCards(data) {
   let i = 0;
 
   divCardsGroup.innerHTML = "";
-  divCardsGroup.style = "";
+  divCardsGroup.className = "row";
 
   while (i < data.length) {
     row = document.createElement("div");
@@ -191,7 +190,7 @@ function showModal(card, index) {
         <div class="row" style="height: 100%;">
           <div class="col-md-6 modal-body-info">
             <img class="card-img-top" src=${card.photo}>
-            <h5>${card.name}</h5>
+            <h5 style="margin-top: 0.5rem;">${card.name}</h5>
             <h6>Tipo de estadia: <small style="display: inline;" class="card-subtitle">${
               card.propertyType
             }</small></h6>

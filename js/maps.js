@@ -104,7 +104,14 @@ function searchLocationsNear() {
   }
 
   if (!markers.length) {
-    map.setCenter(maceio);
+    loadingSpinner();
+    setTimeout(() => {
+      divCardsGroup.innerHTML = `
+          <h2 class="initial-text">
+            Não há estadias perto do local buscado. Procure por estadias em Maceió!
+          </h2>
+    `;
+    }, 1000);
   } else {
     map.fitBounds(bounds);
     loadingSpinner();

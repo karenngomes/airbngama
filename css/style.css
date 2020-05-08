@@ -76,8 +76,15 @@
   justify-content: center;
 }
 
-#div-cards-group #initial-text {
+#div-cards-group .initial-text {
   margin-bottom: 1rem;
+  text-align: center;
+}
+
+.card-group-height {
+  justify-content: center;
+  height: 300px;
+  align-items: center;
 }
 
 #div-cards-group .card {
@@ -114,6 +121,12 @@
 .text-value-day {
   margin-bottom: auto;
   font-weight: bold;
+}
+
+.btn-more-info:focus {
+  box-shadow: none;
+  background-color: #28a745;
+  border-color: #28a745;
 }
 
 .text-prices {
