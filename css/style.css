@@ -181,8 +181,16 @@ footer {
   text-align: center;
 }
 
+footer .row {
+  align-items: center;
+}
+
 footer .text-muted {
   font-size: 15px;
+}
+
+footer .text-muted a {
+  color: #6c757d;
 }
 
 .social-networks {
