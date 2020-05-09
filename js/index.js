@@ -11,7 +11,7 @@ function formattedCurrency(value) {
   return new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
-  }).format(value)
+  }).format(value);
 }
 
 function loadingSpinner() {
@@ -53,8 +53,9 @@ function createCard(card) {
     small.setAttribute("class", "text-muted");
     small.setAttribute("style", "display: block;");
 
-    small.textContent =
-      `Total de ${formattedCurrency(card.price * countDays || "")}`;
+    small.textContent = `Total de ${formattedCurrency(
+      card.price * countDays || ""
+    )}`;
 
     divTextPrices.appendChild(small);
   }
@@ -102,15 +103,12 @@ function renderCards(data) {
     row = document.createElement("div");
     row.setAttribute("class", "row");
 
-    while (1) {
+    do {
       col = createCard(data[i]);
 
       row.appendChild(col);
       i++;
-      if (i % 3 === 0 || i === data.length) {
-        break;
-      }
-    }
+    } while (!(i % 3 === 0 || i === data.length));
 
     divCardsGroup.appendChild(row);
   }
