@@ -158,7 +158,7 @@ function createMarker(currentData) {
 
 function initialize() {}
 
-function initMapModal(currentData, index) {
+function initMapModal(currentData) {
   const myLoc = new google.maps.LatLng(
     currentData.latitude,
     currentData.longitude
@@ -174,7 +174,7 @@ function initMapModal(currentData, index) {
   };
 
   const mapModal = new google.maps.Map(
-    document.querySelector(`#map-modal-${index}`),
+    document.querySelector(`#map-modal-${currentData.id}`),
     opt
   );
   marker.setMap(mapModal);

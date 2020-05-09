@@ -18,7 +18,7 @@ function loadingSpinner() {
   divCardsGroup.appendChild(divSpinner);
 }
 
-function createCard(card, index) {
+function createCard(card) {
   let col = document.createElement("div");
   col.setAttribute("class", "col-md-4 col-cards");
 
@@ -64,16 +64,15 @@ function createCard(card, index) {
 
   buttonModal = document.createElement("button");
   buttonModal.setAttribute("data-toggle", "modal");
-  buttonModal.setAttribute("data-target", `#modalCard${index + 1}`);
+  buttonModal.setAttribute("data-target", `#modalCard${card.id}`);
   buttonModal.innerHTML = '<i class="fas fa-plus"></i>';
 
   Object.assign(buttonModal, {
     className: "btn btn-success btn-more-info",
-    id: `btn-modal-card-${index + 1}`,
-    // textContent: ,
+    id: `btn-modal-card-${card.id}`,
     onclick: function () {
-      showModal(card, index);
-      initMapModal(card, index + 1);
+      showModal(card);
+      initMapModal(card);
     },
   });
 
@@ -106,7 +105,7 @@ function renderCards(data) {
     row.setAttribute("class", "row");
 
     while (1) {
-      col = createCard(data[i], i);
+      col = createCard(data[i]);
 
       row.appendChild(col);
       i++;
@@ -165,11 +164,11 @@ function handleClickSearch() {
   }
 }
 
-function showModal(card, index) {
+function showModal(card) {
   let divModal = document.createElement("div");
 
   Object.assign(divModal, {
-    id: `modalCard${index + 1}`,
+    id: `modalCard${card.id}`,
     tabindex: "-1",
     role: "dialog",
     className: "modal fade",
@@ -204,7 +203,7 @@ function showModal(card, index) {
             </p>
           </div>
           <div class="col-md-6">
-          <div id="map-modal-${index + 1}" style="height: 100%"></div>
+          <div id="map-modal-${card.id}" style="height: 100%"></div>
           </div>
         </div>
       </div>
