@@ -82,14 +82,14 @@ function createCard(card) {
   return col;
 }
 
-async function fetchData() {
-  return await fetch(apiUrl)
-    .then(async function (response) {
-      return await response.json();
-    })
-    .catch(function (err) {
-      console.log("algo deu errado", err);
-    });
+async function fetchData(apiUrl) {
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error("algo deu errado", err);
+  }
 }
 
 function renderCards(data) {
@@ -205,11 +205,15 @@ function showModal(card) {
 }
 
 async function main() {
-  const response = await fetchData();
-  data = response.airbngama;
+  try {
+    const response = await fetchData(apiUrl);
+    data = response.airbngama;
 
-  if (data.length) {
-    initMapSearch();
+    if (data.length) {
+      initMapSearch();
+    }
+  } catch (err) {
+    console.log("Erro ao pegar os dados da api. ", err);
   }
 }
 
