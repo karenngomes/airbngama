@@ -160,6 +160,41 @@ function handleClickSearch() {
   }
 }
 
+function handleChangeDate() {
+  let checkin = document.getElementById("checkin");
+  let checkout = document.getElementById("checkout");
+
+  if (checkin.value) {
+    let checkinDate = new Date(checkin.value);
+
+    checkout.setAttribute(
+      "min",
+      [
+        checkinDate.getFullYear(),
+        checkinDate.getMonth() + 1,
+        checkinDate.getDate() + 1,
+      ]
+        .map((n) => (n < 10 ? `0${n}` : `${n}`))
+        .join("-")
+    );
+  }
+
+  if (checkout.value) {
+    let checkoutDate = new Date(checkout.value);
+
+    checkin.setAttribute(
+      "max",
+      [
+        checkoutDate.getFullYear(),
+        checkoutDate.getMonth() + 1,
+        checkoutDate.getDate() + 1,
+      ]
+        .map((n) => (n < 10 ? `0${n}` : `${n}`))
+        .join("-")
+    );
+  }
+}
+
 function showModal(card) {
   let divModal = document.createElement("div");
 

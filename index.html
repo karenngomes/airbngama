@@ -40,14 +40,16 @@
                             </div>
                             <div class="col-md-3 mb-2">
                                 <label for="checkin">Check-in</label>
-                                <input type="date" class="form-control" id="checkin" required>
+                                <input type="date" class="form-control" onchange="handleChangeDate()"
+                                    id="checkin" required>
                                 <div class="invalid-feedback date-fields">
                                     Selecione uma data de checkin
                                 </div>
                             </div>
                             <div class="col-md-3 mb-2">
                                 <label for="checkout">Checkout</label>
-                                <input type="date" class="form-control" id="checkout" required>
+                                <input type="date" class="form-control" onchange="handleChangeDate()"
+                                    id="checkout" required>
                                 <div class="invalid-feedback date-fields">
                                     Selecione uma data de checkout
                                 </div>
