@@ -128,12 +128,7 @@ function createMarker(currentData) {
       <p> ${currentData.name} </p>
       <p> Tipo de estadia: ${currentData.propertyType} </p>
       <p>
-        ${
-          new Intl.NumberFormat("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-          }).format(currentData.price || "") + "/noite"
-        }
+        ${formattedCurrency(currentData.price || "")}/noite
       </p>
     </div>
   `;

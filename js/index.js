@@ -7,6 +7,13 @@ let divContainer = document.querySelector(".container");
 let divCardsGroup = document.getElementById("div-cards-group");
 let buttonModal = document.createElement("button");
 
+function formattedCurrency(value) {
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(value)
+}
+
 function loadingSpinner() {
   let divSpinner = document.createElement("div");
   divSpinner.setAttribute("class", "spinner-border text-success");
@@ -37,12 +44,7 @@ function createCard(card) {
   divTextPrices.setAttribute("class", "text-prices");
   divTextPrices.innerHTML = `
     <p class="card-text text-value-day">
-      ${
-        new Intl.NumberFormat("pt-BR", {
-          style: "currency",
-          currency: "BRL",
-        }).format(card.price || "") + "/noite"
-      }
+      ${formattedCurrency(card.price || "")}/noite
     </p>
   `;
 
@@ -52,11 +54,7 @@ function createCard(card) {
     small.setAttribute("style", "display: block;");
 
     small.textContent =
-      "Total de " +
-      new Intl.NumberFormat("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      }).format(card.price * countDays || "");
+      `Total de ${formattedCurrency(card.price * countDays || "")}`;
 
     divTextPrices.appendChild(small);
   }
@@ -194,12 +192,7 @@ function showModal(card) {
               card.propertyType
             }</small></h6>
             <p class="text-value-day">
-              ${
-                new Intl.NumberFormat("pt-BR", {
-                  style: "currency",
-                  currency: "BRL",
-                }).format(card.price || "") + "/noite"
-              }
+              ${formattedCurrency(card.price || "")}/noite
             </p>
           </div>
           <div class="col-md-6">
