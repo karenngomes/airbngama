@@ -105,8 +105,8 @@ function renderCards(data) {
     divCardsGroup.appendChild(row);
   }
 
-  // let pagination = createPagination();
-  // divCardsGroup.appendChild(pagination);
+  let pagination = createPagination();
+  divCardsGroup.appendChild(pagination);
 }
 
 // function validateForm() {
@@ -232,8 +232,7 @@ async function main() {
     data = response.airbngama;
 
     if (data.length) {
-      // loadPagination(data);
-      renderCards(data);
+      loadPagination(data);
     }
   } catch (err) {
     console.log("Erro ao pegar os dados da api. ", err);
