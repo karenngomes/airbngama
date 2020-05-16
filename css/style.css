@@ -1,0 +1,221 @@
+.navbar {
+  background-color: white;
+  height: 5.5rem;
+  padding-left: 4.5rem;
+  padding-right: 4.5rem;
+}
+
+#btn-about-me {
+  display: flex;
+  align-items: center;
+  padding: 5px 5px 5px 16px;
+  align-items: center;
+  border-radius: 21px;
+  border: 1px solid transparent;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.18);
+  border-color: #ebebeb;
+  background-color: #ffffff;
+  color: black;
+  text-decoration: none;
+  transition: box-shadow 0.3s;
+}
+
+#btn-about-me:hover {
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+#btn-about-me p {
+  margin-bottom: 0;
+  margin-right: 0.5rem;
+}
+
+#btn-about-me img {
+  border-radius: 100%;
+}
+
+.col-cards {
+  margin-bottom: 2rem;
+}
+
+#div-map {
+  position: relative;
+}
+
+.show-map {
+  height: 40vh;
+  /* width: 50vw; */
+  margin-bottom: 2rem;
+}
+
+#map {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+#infowindow-content .title {
+  font-weight: bold;
+}
+
+#infowindow-content {
+  display: none;
+}
+
+#map #infowindow-content {
+  display: inline;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+
+#div-cards-group {
+  margin-left: 0;
+  margin-right: 0;
+  justify-content: center;
+}
+
+#div-cards-group .initial-text {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.card-group-height {
+  justify-content: center;
+  height: 300px;
+  align-items: center;
+}
+
+#div-cards-group .card {
+  border-radius: 21px;
+  border: 1px solid transparent;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.18);
+  border-color: #ebebeb;
+  min-height: 100%;
+}
+
+#div-cards-group .card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+#div-cards-group .card-img-top {
+  border-top-left-radius: 21px;
+  border-top-right-radius: 21px;
+}
+
+.card-body {
+  /* height: 8rem; */
+}
+
+.card-img-top {
+  height: 13rem;
+}
+
+.card-subtitle {
+  margin-bottom: 0.5rem;
+  display: block;
+  font-size: 1rem;
+}
+
+.text-value-day {
+  margin-bottom: auto;
+  font-weight: bold;
+}
+
+.btn-more-info:focus {
+  box-shadow: none;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.text-prices {
+  float: right;
+}
+
+#div-row-search {
+  margin: 7.5rem 1rem 2rem;
+  justify-content: center;
+}
+
+.form-control.is-valid:focus,
+.was-validated :valid.form-control {
+  border-color: #ced4da !important;
+  background-image: inherit !important;
+  box-shadow: inherit !important;
+}
+
+#div-row-search .card {
+  width: 100%;
+}
+
+.div-btn-search {
+  height: 2.5rem;
+  place-self: center;
+}
+
+.div-btn-search button {
+  float: right;
+}
+
+.row-pagination {
+  width: 100%;
+  margin: 0;
+}
+
+.row-pagination div {
+  display: flex;
+  justify-content: center;
+}
+
+.page-item a {
+  cursor: pointer;
+}
+
+.page-item.active .page-link {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+footer {
+  text-align: center;
+}
+
+footer .row {
+  align-items: center;
+}
+
+footer .text-muted {
+  font-size: 15px;
+}
+
+footer .text-muted a {
+  color: #6c757d;
+}
+
+.social-networks {
+  display: flex;
+  justify-content: center;
+}
+
+.social-networks ul {
+  display: flex;
+}
+
+.social-networks ul li a {
+  width: 10rem;
+  color: black;
+}
+
+.social-networks ul li:not(:first-child) {
+  margin-left: 0.7rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .modal-body {
+    height: 100vh !important;
+  }
+  .modal-body-info {
+    height: 10% !important;
+  }
+}

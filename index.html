@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="./assets/airbngama.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Airbngama</title>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar border-bottom fixed-top navbar-light">
+            <a class="navbar-brand" href="https://airbngama.netlify.app/">
+                <img src="./assets/airbngama.png" width="45" height="45" alt="">
+            </a>
+            <div class="my-2 my-lg-0">
+                <a id="btn-about-me" href="https://about.me/karenngomes" target="_blank">
+                    <p>Karen</p>
+                    <img src="./assets/me.jpg" width="32" height="35" alt="" />
+                </a>
+            </div>
+        </nav>
+        <div id="div-row-search" class="row">
+            <div class="card">
+                <div class="card-body">
+                    <form id="form-search" onsubmit="event.preventDefault()" novalidate>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-2">
+                                <label for="location-search">Localização</label>
+                                <input type="text" class="form-control" id="location-search"
+                                    placeholder="Para onde você vai?" required>
+                                <div class="invalid-feedback">
+                                    Selecione uma localização
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <label for="checkin">Check-in</label>
+                                <input type="date" class="form-control" onchange="handleChangeDate()"
+                                    id="checkin" required>
+                                <div class="invalid-feedback date-fields">
+                                    Selecione uma data de checkin
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <label for="checkout">Checkout</label>
+                                <input type="date" class="form-control" onchange="handleChangeDate()"
+                                    id="checkout" required>
+                                <div class="invalid-feedback date-fields">
+                                    Selecione uma data de checkout
+                                </div>
+                            </div>
+                            <div class="col div-btn-search">
+                                <button type="submit" onclick="handleClickSearch()" class="btn btn-outline-success"><i
+                                        class="fas fa-search"></i>
+                                    Buscar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- <div id="div-map" class="row show-map">
+            <div id="map"></div>
+        </div> -->
+        <div id="div-cards-group" class="row card-group-height">
+            <!-- <h2 class="initial-text">Procure por estadias em Maceió</h2> -->
+        </div>
+
+        <footer class="pt-4 my-md-5 pt-md-5 border-top">
+            <div class="row" style="">
+                <div class="col-sm">
+                    <p>Made with <i class="fas fa-heart"></i> and <i class="fab fa-js"></i></p>
+                </div>
+                <div class="col-sm">
+                    <p class="text-muted">© 2020 Karen Gomes, Inc. All rights reserved. <br>See the <a
+                            href="https://github.com/karenngomes/airbngama" target="_blank"><i
+                                class="fa fa-code"></i></a></p>
+                </div>
+                <div class="col-sm social-networks">
+                    <ul class="list-unstyled text-small">
+                        <li><a href="https://github.com/karenngomes/" target="_blank"><i
+                                    class="fab fa-github-square fa-lg"></i></a></li>
+                        <li><a href="https://www.linkedin.com/in/karenngomes/" target="_blank"><i
+                                    class="fab fa-linkedin fa-lg"></i></a></li>
+                        <li><a href="https://twitter.com/gomesskaren/" target="_blank"><i
+                                    class="fab fa-twitter-square fa-lg"></i></a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </footer>
+    </div>
+
+    <script src="./js/util.js"></script>
+    <script src="./js/index.js"></script>
+    <!-- <script src="./js/maps.js"></script>
+    <script src="./js/pagination.js"></script> -->
+    <!-- <script
+        src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&language=pt-BR&libraries=places,geometry&callback=initialize"
+        async defer></script> -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
