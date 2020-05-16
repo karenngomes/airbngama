@@ -23,6 +23,7 @@ async function initMapSearch() {
     componentRestrictions: { country: "br" },
   });
 
+  autocomplete.bindTo('bounds', map);
   autocomplete.setFields(["address_components", "geometry", "icon", "name"]);
 
   autocomplete.addListener("place_changed", function () {
@@ -79,7 +80,7 @@ function clearLocations() {
 //     );
 //     const distance = google.maps.geometry.spherical.computeDistanceBetween(
 //       currentLoc,
-//       latlng
+//       latlng,
 //     );
 
 //     if (distance < 1500) {
