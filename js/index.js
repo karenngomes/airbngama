@@ -40,17 +40,18 @@ function createCard(card) {
     </p>
   `;
 
-  if (countDays > 0) {
-    let small = document.createElement("small");
-    small.setAttribute("class", "text-muted");
-    small.setAttribute("style", "display: block;");
+  // if (countDays > 0) {
+  //   let small = document.createElement("small");
+  //   small.setAttribute("class", "text-muted");
+  //   small.setAttribute("style", "display: block;");
 
-    small.textContent = `Total de ${formattedCurrency(
-      card.price * countDays || ""
-    )}`;
+  //   small.textContent = `Total de ${formattedCurrency(
+  //     card.price * countDays || ""
+  //   )}`;
 
-    divTextPrices.appendChild(small);
-  }
+  //   divTextPrices.appendChild(small);
+  // }
+
   divCardBody.appendChild(divTextPrices);
 
   // let buttonModal = document.createElement("button");
