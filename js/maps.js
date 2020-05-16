@@ -1,64 +1,50 @@
-// let map;
-// let markers = [];
-// let infoWindow;
-// let input;
-// let currentLoc;
-// let maceio = { lat: -9.6658297, lng: -35.7352791 };
+const MACEIO = { lat: -9.6658297, lng: -35.7352791 };
 
-// async function initMapSearch() {
-//   map = new google.maps.Map(document.getElementById("map"), {
-//     center: maceio,
-//     zoom: 11,
-//     mapTypeId: "roadmap",
-//     mapTypeControlOptions: {
-//       style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-//     },
-//   });
-//   infoWindow = new google.maps.InfoWindow();
+let map;
+let markers = [];
+let infoWindow;
+let input;
+let currentLoc;
 
-//   input = document.getElementById("location-search");
+async function initMapSearch() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: MACEIO,
+    zoom: 13,
+    mapTypeId: "roadmap",
+    mapTypeControlOptions: {
+      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+    },
+  });
+  infoWindow = new google.maps.InfoWindow();
 
-//   let autocomplete = new google.maps.places.Autocomplete(input, {
-//     componentRestrictions: { country: "br" },
-//     strictbounds: true,
-//   });
-//   autocomplete.bindTo("bounds", map);
+  input = document.getElementById("location-search");
 
-//   autocomplete.setFields(["address_components", "geometry", "icon", "name"]);
+  let autocomplete = new google.maps.places.Autocomplete(input, {
+    componentRestrictions: { country: "br" },
+  });
 
-//   autocomplete.addListener("place_changed", function () {
-//     let place = autocomplete.getPlace();
-//     currentLoc = place.geometry.location;
+  autocomplete.setFields(["address_components", "geometry", "icon", "name"]);
 
-//     clearLocations();
-//     if (!place.geometry) {
-//       window.alert("Não há detalhes para o lugar: '" + place.name + "'");
-//       return;
-//     }
+  autocomplete.addListener("place_changed", function () {
+    let place = autocomplete.getPlace();
 
-//     if (place.geometry.viewport) {
-//       map.fitBounds(place.geometry.viewport);
-//     } else {
-//       map.setCenter(place.geometry.location);
-//       map.setZoom(17);
-//     }
+    clearLocations();
 
-//     let address = "";
-//     if (place.address_components) {
-//       address = [
-//         (place.address_components[0] &&
-//           place.address_components[0].short_name) ||
-//           "",
-//         (place.address_components[1] &&
-//           place.address_components[1].short_name) ||
-//           "",
-//         (place.address_components[2] &&
-//           place.address_components[2].short_name) ||
-//           "",
-//       ].join(" ");
-//     }
-//   });
-// }
+    if (!place.geometry) {
+      window.alert("Não há detalhes para o lugar: '" + place.name + "'");
+      return;
+    }
+
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(17);
+    }
+
+    currentLoc = place.geometry.location;
+  });
+}
 
 // function searchLocations() {
 //   input = document.getElementById("location-search").value;
@@ -72,13 +58,13 @@
 //   });
 // }
 
-// function clearLocations() {
-//   infoWindow.close();
-//   for (var i = 0; i < markers.length; i++) {
-//     markers[i].setMap(null);
-//   }
-//   markers.length = 0;
-// }
+function clearLocations() {
+  infoWindow.close();
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
+  }
+  markers.length = 0;
+}
 
 // function searchLocationsNear() {
 //   let bounds = new google.maps.LatLngBounds();

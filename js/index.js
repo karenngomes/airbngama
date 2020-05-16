@@ -238,6 +238,7 @@ async function main() {
 
     if (data.length) {
       loadPagination(data);
+      initMapSearch();
     }
   } catch (err) {
     console.log("Erro ao pegar os dados da api. ", err);
