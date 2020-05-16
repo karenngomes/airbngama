@@ -147,8 +147,7 @@ function validateForm() {
 
 function handleClickSearch() {
   if (validateForm()) {
-    // searchLocations();
-    loadPagination(data);
+    searchLocations();
   }
 }
 

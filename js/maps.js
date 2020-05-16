@@ -47,17 +47,17 @@ async function initMapSearch() {
   });
 }
 
-// function searchLocations() {
-//   input = document.getElementById("location-search").value;
-//   let geocoder = new google.maps.Geocoder();
-//   geocoder.geocode({ address: input }, function (results, status) {
-//     if (status == google.maps.GeocoderStatus.OK) {
-//       searchLocationsNear(results[0].geometry.location);
-//     } else {
-//       alert(input + " não encontrado");
-//     }
-//   });
-// }
+function searchLocations() {
+  input = document.getElementById("location-search").value;
+  let geocoder = new google.maps.Geocoder();
+  geocoder.geocode({ address: input }, function (results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      searchLocationsNear(results[0].geometry.location);
+    } else {
+      alert(input + " não encontrado");
+    }
+  });
+}
 
 function clearLocations() {
   infoWindow.close();
@@ -67,75 +67,75 @@ function clearLocations() {
   markers.length = 0;
 }
 
-// function searchLocationsNear() {
-//   let bounds = new google.maps.LatLngBounds();
-//   let cards = [];
+function searchLocationsNear() {
+  let bounds = new google.maps.LatLngBounds();
+  let cards = [];
 
-//   clearLocations();
+  clearLocations();
 
-//   for (var i = 0; i < data.length; i++) {
-//     const latlng = new google.maps.LatLng(
-//       parseFloat(data[i].latitude),
-//       parseFloat(data[i].longitude)
-//     );
-//     const distance = google.maps.geometry.spherical.computeDistanceBetween(
-//       currentLoc,
-//       latlng,
-//     );
+  for (var i = 0; i < data.length; i++) {
+    const latlng = new google.maps.LatLng(
+      parseFloat(data[i].latitude),
+      parseFloat(data[i].longitude)
+    );
+    const distance = google.maps.geometry.spherical.computeDistanceBetween(
+      currentLoc,
+      latlng,
+    );
 
-//     if (distance < 1500) {
-//       cards.push(data[i]);
-//       createMarker(data[i]);
-//       bounds.extend(latlng);
-//     }
-//   }
+    if (distance < 1500) {
+      cards.push(data[i]);
+      createMarker(data[i]);
+      bounds.extend(latlng);
+    }
+  }
 
-//   if (!markers.length) {
-//     loadingSpinner();
-//     setTimeout(() => {
-//       divCardsGroup.innerHTML = `
-//           <h2 class="initial-text">
-//             Não há estadias perto do local buscado. Procure por estadias em Maceió!
-//           </h2>
-//     `;
-//     }, 1000);
-//   } else {
-//     map.fitBounds(bounds);
-//     loadingSpinner();
-//     setTimeout(() => loadPagination(cards), 1000);
-//   }
-// }
+  if (!markers.length) {
+    loadingSpinner();
+    setTimeout(() => {
+      divCardsGroup.innerHTML = `
+          <h2 class="initial-text">
+            Não há estadias perto do local buscado. Procure por estadias em Maceió!
+          </h2>
+    `;
+    }, 1000);
+  } else {
+    map.fitBounds(bounds);
+    loadingSpinner();
+    setTimeout(() => loadPagination(cards), 1000);
+  }
+}
 
-// function createMarker(currentData) {
-//   let html = document.createElement("div");
-//   html.style = "display: flex;";
-//   html.innerHTML = `
-//     <img style="width: 10rem;height: 8rem;" src=${currentData.photo}>
-//     <div style="width: 10rem;margin: 0rem 1rem;">
-//       <p> ${currentData.name} </p>
-//       <p> Tipo de estadia: ${currentData.propertyType} </p>
-//       <p>
-//         ${formattedCurrency(currentData.price || "")}/noite
-//       </p>
-//     </div>
-//   `;
+function createMarker(currentData) {
+  let html = document.createElement("div");
+  html.style = "display: flex;";
+  html.innerHTML = `
+    <img style="width: 10rem;height: 8rem;" src=${currentData.photo}>
+    <div style="width: 10rem;margin: 0rem 1rem;">
+      <p> ${currentData.name} </p>
+      <p> Tipo de estadia: ${currentData.propertyType} </p>
+      <p>
+        ${formattedCurrency(currentData.price || "")}/noite
+      </p>
+    </div>
+  `;
 
-//   const latlng = new google.maps.LatLng(
-//     parseFloat(currentData.latitude),
-//     parseFloat(currentData.longitude)
-//   );
+  const latlng = new google.maps.LatLng(
+    parseFloat(currentData.latitude),
+    parseFloat(currentData.longitude)
+  );
 
-//   const marker = new google.maps.Marker({
-//     map: map,
-//     position: latlng,
-//   });
+  const marker = new google.maps.Marker({
+    map: map,
+    position: latlng,
+  });
 
-//   google.maps.event.addListener(marker, "click", function () {
-//     infoWindow.setContent(html);
-//     infoWindow.open(map, marker);
-//   });
-//   markers.push(marker);
-// }
+  google.maps.event.addListener(marker, "click", function () {
+    infoWindow.setContent(html);
+    infoWindow.open(map, marker);
+  });
+  markers.push(marker);
+}
 
 /* --- Finish search map methods --- */
 
