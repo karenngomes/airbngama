@@ -152,40 +152,40 @@ function handleClickSearch() {
   }
 }
 
-// function handleChangeDate() {
-//   let checkin = document.getElementById("checkin");
-//   let checkout = document.getElementById("checkout");
+function handleChangeDate() {
+  let checkinValue = document.getElementById("checkin").value;
+  let checkoutValue = document.getElementById("checkout").value;
 
-//   if (checkin.value) {
-//     let checkinDate = new Date(checkin.value);
+  if (checkinValue) {
+    let checkinDate = new Date(checkinValue);
 
-//     checkout.setAttribute(
-//       "min",
-//       [
-//         checkinDate.getFullYear(),
-//         checkinDate.getMonth() + 1,
-//         checkinDate.getDate() + 1,
-//       ]
-//         .map((n) => (n < 10 ? `0${n}` : `${n}`))
-//         .join("-")
-//     );
-//   }
+    checkout.setAttribute(
+      "min",
+      [
+        checkinDate.getFullYear(),
+        checkinDate.getMonth() + 1,
+        checkinDate.getDate() + 1,
+      ]
+        .map((n) => (n < 10 ? `0${n}` : `${n}`))
+        .join("-")
+    );
+  }
 
-//   if (checkout.value) {
-//     let checkoutDate = new Date(checkout.value);
+  if (checkoutValue) {
+    let checkoutDate = new Date(checkoutValue);
 
-//     checkin.setAttribute(
-//       "max",
-//       [
-//         checkoutDate.getFullYear(),
-//         checkoutDate.getMonth() + 1,
-//         checkoutDate.getDate() + 1,
-//       ]
-//         .map((n) => (n < 10 ? `0${n}` : `${n}`))
-//         .join("-")
-//     );
-//   }
-// }
+    checkin.setAttribute(
+      "max",
+      [
+        checkoutDate.getFullYear(),
+        checkoutDate.getMonth() + 1,
+        checkoutDate.getDate() + 1,
+      ]
+        .map((n) => (n < 10 ? `0${n}` : `${n}`))
+        .join("-")
+    );
+  }
+}
 
 function showModal(card) {
   let divContainer = document.querySelector(".container");
