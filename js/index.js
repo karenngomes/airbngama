@@ -40,17 +40,17 @@ function createCard(card) {
     </p>
   `;
 
-  // if (countDays > 0) {
-  //   let small = document.createElement("small");
-  //   small.setAttribute("class", "text-muted");
-  //   small.setAttribute("style", "display: block;");
+  if (countDays > 0) {
+    let small = document.createElement("small");
+    small.setAttribute("class", "text-muted");
+    small.setAttribute("style", "display: block;");
 
-  //   small.textContent = `Total de ${formattedCurrency(
-  //     card.price * countDays || ""
-  //   )}`;
+    small.textContent = `Total de ${formattedCurrency(
+      card.price * countDays || ""
+    )}`;
 
-  //   divTextPrices.appendChild(small);
-  // }
+    divTextPrices.appendChild(small);
+  }
 
   divCardBody.appendChild(divTextPrices);
 
@@ -110,43 +110,47 @@ function renderCards(data) {
   divCardsGroup.appendChild(pagination);
 }
 
-// function validateForm() {
-//   let form = document.getElementById("form-search");
-//   form.classList.add("was-validated");
+function validateForm() {
+  let form = document.getElementById("form-search");
+  form.classList.add("was-validated");
 
-//   const invalidGroup = form.querySelectorAll(":invalid");
+  const invalidGroup = form.querySelectorAll(":invalid");
 
-//   if (invalidGroup.length) {
-//     return false;
-//   }
+  if (invalidGroup.length) {
+    return false;
+  }
 
-//   let checkin = document.getElementById("checkin");
-//   let checkout = document.getElementById("checkout");
+  let checkin = document.getElementById("checkin");
+  let checkout = document.getElementById("checkout");
 
-//   let checkinDate = new Date(checkin.value);
-//   let checkoutDate = new Date(checkout.value);
+  let checkinDate = new Date(checkin.value);
+  let checkoutDate = new Date(checkout.value);
 
-//   if (checkinDate > checkoutDate) {
-//     let invalidFeedback = document.querySelectorAll(".date-fields");
-//     checkin.classList.add("is-invalid");
-//     checkout.classList.add("is-invalid");
+  if (checkinDate > checkoutDate) {
+    let invalidFeedback = document.querySelectorAll(".date-fields");
+    checkin.classList.add("is-invalid");
+    checkout.classList.add("is-invalid");
 
-//     invalidFeedback.forEach((div) => {
-//       return (div.textContent = "Data de Checkin maior que Data de Checkout");
-//     });
-//     return false;
-//   }
+    invalidFeedback.forEach((div) => {
+      return (div.textContent = "Data de Checkin maior que Data de Checkout");
+    });
+    return false;
+  } else {
+    checkin.classList.remove("is-invalid");
+    checkout.classList.remove("is-invalid");
+  }
 
-//   countDays = daysBetween(checkinDate, checkoutDate);
+  countDays = daysBetween(checkinDate, checkoutDate);
 
-//   return true;
-// }
+  return true;
+}
 
-// function handleClickSearch() {
-//   if (validateForm()) {
-//     searchLocations();
-//   }
-// }
+function handleClickSearch() {
+  if (validateForm()) {
+    // searchLocations();
+    loadPagination(data);
+  }
+}
 
 // function handleChangeDate() {
 //   let checkin = document.getElementById("checkin");
