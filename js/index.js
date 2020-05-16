@@ -54,21 +54,21 @@ function createCard(card) {
 
   divCardBody.appendChild(divTextPrices);
 
-  // let buttonModal = document.createElement("button");
-  // buttonModal.setAttribute("data-toggle", "modal");
-  // buttonModal.setAttribute("data-target", `#modalCard${card.id}`);
-  // buttonModal.innerHTML = '<i class="fas fa-plus"></i>';
+  let buttonModal = document.createElement("button");
+  buttonModal.setAttribute("data-toggle", "modal");
+  buttonModal.setAttribute("data-target", `#modalCard${card.id}`);
+  buttonModal.innerHTML = '<i class="fas fa-plus"></i>';
 
-  // Object.assign(buttonModal, {
-  //   className: "btn btn-success btn-more-info",
-  //   id: `btn-modal-card-${card.id}`,
-  //   onclick: function () {
-  //     showModal(card);
-  //     initMapModal(card);
-  //   },
-  // });
+  Object.assign(buttonModal, {
+    className: "btn btn-success btn-more-info",
+    id: `btn-modal-card-${card.id}`,
+    onclick: function () {
+      showModal(card);
+      initMapModal(card);
+    },
+  });
 
-  // divCardBody.appendChild(buttonModal);
+  divCardBody.appendChild(buttonModal);
   divCard.appendChild(divCardBody);
   col.appendChild(divCard);
 
@@ -183,49 +183,49 @@ function renderCards(data) {
 //   }
 // }
 
-// function showModal(card) {
-//   let divModal = document.createElement("div");
+function showModal(card) {
+  let divContainer = document.querySelector(".container");
+  let divModal = document.createElement("div");
 
-//   Object.assign(divModal, {
-//     id: `modalCard${card.id}`,
-//     tabindex: "-1",
-//     role: "dialog",
-//     className: "modal fade",
-//   });
-//   divModal.setAttribute("aria-labelledby", "exampleModalLabel");
-//   divModal.setAttribute("aria-hidden", "true");
+  Object.assign(divModal, {
+    id: `modalCard${card.id}`,
+    tabindex: "-1",
+    role: "dialog",
+    className: "modal fade",
+  });
+  divModal.setAttribute("aria-hidden", "true");
 
-//   divModal.innerHTML = `
-//   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-//     <div class="modal-content">
-//       <div class="modal-header">
-//         <h5 class="modal-title" id="exampleModalLabel">Informações sobre a estadia</h5>
-//         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-//           <span aria-hidden="true">&times;</span>
-//         </button>
-//       </div>
-//       <div class="modal-body" style="height: 70vh">
-//         <div class="row" style="height: 100%;">
-//           <div class="col-md-6 modal-body-info">
-//             <img class="card-img-top" src=${card.photo}>
-//             <h5 style="margin-top: 0.5rem;">${card.name}</h5>
-//             <h6>Tipo de estadia: <small style="display: inline;" class="card-subtitle">${
-//               card.propertyType
-//             }</small></h6>
-//             <p class="text-value-day">
-//               ${formattedCurrency(card.price || "")}/noite
-//             </p>
-//           </div>
-//           <div class="col-md-6">
-//           <div id="map-modal-${card.id}" style="height: 100%"></div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   </div>`;
+  divModal.innerHTML = `
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Informações sobre a estadia</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="height: 70vh">
+        <div class="row" style="height: 100%;">
+          <div class="col-md-6 modal-body-info">
+            <img class="card-img-top" src=${card.photo}>
+            <h5 style="margin-top: 0.5rem;">${card.name}</h5>
+            <h6>Tipo de estadia: <small style="display: inline;" class="card-subtitle">${
+              card.propertyType
+            }</small></h6>
+            <p class="text-value-day">
+              ${formattedCurrency(card.price || "")}/noite
+            </p>
+          </div>
+          <div class="col-md-6">
+            <div id="map-modal-${card.id}" style="height: 100%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
 
-//   divContainer.appendChild(divModal);
-// }
+  divContainer.appendChild(divModal);
+}
 
 async function main() {
   try {
